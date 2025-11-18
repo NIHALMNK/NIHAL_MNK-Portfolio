@@ -20,33 +20,53 @@ connectDB();
 const app = express();
 const __dirname = path.resolve();
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL?.split(',') || '*',
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
-
-if (process.env.NODE_ENV !== 'production') {
-  app.use(morgan('dev'));
-}
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Portfolio API is running' });
+// FORCE CORS FIRST
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://nihal-mnk-portfolio.onrender.com");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+  
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  
+  next();
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/content', contentRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api/projects', projectRoutes);
-app.use('/api/collaborations', collaborationRoutes);
-app.use('/api/starter-projects', starterProjectRoutes);
-app.use('/api/testimonials', testimonialRoutes);
-app.use('/api/uploads', uploadRoutes);
+// Then add cors() for safety
+// app.use(cors({
+//   origin: "https://nihal-mnk-portfolio.onrender.com",
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true
+// }));
 
+// app.use(cors());
+
+// Body parsers
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true }));
+
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
+
+// Default route
+app.get("/", (req, res) => {
+  res.json({ message: "Portfolio API is running" });
+});
+
+// API routes
+app.use("/api/auth", authRoutes);
+app.use("/api/content", contentRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/projects", projectRoutes);
+app.use("/api/collaborations", collaborationRoutes);
+app.use("/api/starter-projects", starterProjectRoutes);
+app.use("/api/testimonials", testimonialRoutes);
+app.use("/api/uploads", uploadRoutes);
+
+// Error handlers
 app.use(notFound);
 app.use(errorHandler);
 
