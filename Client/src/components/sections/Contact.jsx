@@ -1,0 +1,74 @@
+import SectionShell from '../layout/SectionShell';
+import SectionHeading from '../common/SectionHeading';
+
+const Contact = ({ content = {} }) => {
+  const hasHeading = Boolean(content?.eyebrow || content?.title || content?.description);
+  const hasPrimaryCta = Boolean(content?.primaryCta?.label);
+  const hasSecondaryCta = Boolean(content?.secondaryCta?.label);
+
+  return (
+    <SectionShell id="contact">
+      <div className="grid lg:grid-cols-2 gap-10 rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl p-10">
+        <div className="space-y-4">
+          {hasHeading ? (
+            <SectionHeading
+              eyebrow={content?.eyebrow}
+              title={content?.title}
+              description={content?.description}
+            />
+          ) : (
+            <p className="text-sm text-slate-400">Add contact copy in the admin dashboard to show it here.</p>
+          )}
+          {(hasPrimaryCta || hasSecondaryCta) && (
+            <div className="flex flex-wrap gap-4" data-cursor>
+              {hasPrimaryCta && (
+                <a
+                  href={content?.primaryCta?.href}
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-teal-400 to-cyan-500 text-slate-900 font-semibold text-center"
+                >
+                  {content?.primaryCta?.label}
+                </a>
+              )}
+              {hasSecondaryCta && (
+                <a
+                  href={content?.secondaryCta?.href}
+                  className="px-6 py-3 rounded-full border border-white/20 text-center"
+                >
+                  {content?.secondaryCta?.label}
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+        <form className="space-y-4" data-cursor>
+          <div>
+            <label className="text-sm text-slate-300">Name</label>
+            <input
+              type="text"
+              className="w-full mt-1 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:border-teal-300 outline-none"
+              placeholder="Your name"
+            />
+          </div>
+          <div>
+            <label className="text-sm text-slate-300">Email</label>
+            <input
+              type="email"
+              className="w-full mt-1 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:border-teal-300 outline-none"
+              placeholder="you@email.com"
+            />
+          </div>
+          <div>
+            <label className="text-sm text-slate-300">Message</label>
+            <textarea
+              rows="4"
+              className="w-full mt-1 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:border-teal-300 outline-none"
+              placeholder="Tell me about your idea"
+            />
+          </div>
+        </form>
+      </div>
+    </SectionShell>
+  );
+};
+
+export default Contact;
