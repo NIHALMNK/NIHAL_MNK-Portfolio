@@ -60,6 +60,8 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/uploads", uploadRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use(notFound);
 app.use(errorHandler);
