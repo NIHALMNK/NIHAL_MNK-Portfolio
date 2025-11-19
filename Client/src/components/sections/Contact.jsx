@@ -86,7 +86,10 @@ const Contact = ({ content = {} }) => {
               {hasSecondaryCta && (
                 <a
                   href={content?.secondaryCta?.href}
-                  className="px-6 py-3 rounded-full border border-white/20 text-center"
+                  download="Nihal.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full border border-white/20 text-center hover:border-teal-400/40 hover:bg-teal-400/5 transition-all"
                 >
                   {content?.secondaryCta?.label}
                 </a>
