@@ -91,6 +91,7 @@ function PortfolioPage() {
           {!isLoading && content && (
             <>
               <Hero content={content.heroContent} />
+              <br />
               {content.stats?.length > 0 && <ExperienceGrid stats={content.stats} />}
               <Services services={content.services} heading={content.sectionCopy?.services} />
               <About
