@@ -23,8 +23,10 @@ const collectionSections = [
       { name: 'description', label: 'Description', type: 'textarea' },
       { name: 'tag', label: 'Tag / Category' },
       { name: 'image', label: 'Cover Image', type: 'image', aspect: 16 / 9 },
+      { name: 'color', label: 'Gradient (ex: from-emerald-400/80 to-cyan-400/40)' },
       { name: 'liveUrl', label: 'Live URL' },
       { name: 'githubUrl', label: 'GitHub URL' },
+      { name: 'order', label: 'Order', type: 'number' },
     ],
   },
   {
@@ -38,6 +40,7 @@ const collectionSections = [
       { name: 'logo', label: 'Logo', type: 'image', aspect: 1 },
       { name: 'url', label: 'Website URL' },
       { name: 'highlight', label: 'Highlight' },
+      { name: 'order', label: 'Order', type: 'number' },
     ],
   },
   {
@@ -51,6 +54,7 @@ const collectionSections = [
       { name: 'description', label: 'Description', type: 'textarea' },
       { name: 'image', label: 'Image', type: 'image', aspect: 4 / 3 },
       { name: 'learnMoreUrl', label: 'Learn More URL' },
+      { name: 'order', label: 'Order', type: 'number' },
     ],
   },
   {
@@ -66,6 +70,7 @@ const collectionSections = [
       { name: 'company', label: 'Company' },
       { name: 'quote', label: 'Message', type: 'textarea' },
       { name: 'avatar', label: 'Avatar', type: 'image', aspect: 1 },
+      { name: 'order', label: 'Order', type: 'number' },
       { name: 'approved', label: 'Approved', type: 'checkbox' },
     ],
   },
@@ -353,9 +358,9 @@ function AdminPage() {
               </div>
 
               <div className="grid gap-3 md:grid-cols-2">
-              {collectionSections.map((section) => {
-                const isActive = section.key === activeCollectionKey;
-                const value = sectionCounts[section.key];
+                {collectionSections.map((section) => {
+                  const isActive = section.key === activeCollectionKey;
+                  const value = sectionCounts[section.key];
                   return (
                     <button
                       type="button"
